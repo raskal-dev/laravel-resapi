@@ -19,12 +19,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/login', [UserController::class, 'loginUser']);
 
 Route::prefix('/users')->middleware('auth:api')->group(function (){
 
     Route::post('/create', [UserController::class, 'createUser']);
     Route::get('/list', [UserController::class, 'listUser']);
+    Route::get('/logout', [UserController::class, 'logoutUser']);
+    Route::put('/update', [UserController::class, 'updateUser']);
+    Route::delete('/delete', [UserController::class, 'deleteUser']);
 
 });
 
-Route::post('/login', [UserController::class, 'loginUser']);

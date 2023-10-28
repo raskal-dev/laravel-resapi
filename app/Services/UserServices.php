@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\TokenRepository;
 
 class UserServices extends BaseController
 {
@@ -35,6 +36,28 @@ class UserServices extends BaseController
             return $this->sendResponse($token, "User logged successfully !");
         }
         return $this->sendResponse([], "Password incorrect !", 401);
+    }
+
+    public function logout()
+    {
+        $tokens = Auth::user()->tokens;
+        $tokenRepository = app(TokenRepository::class);
+        foreach ($tokens as $token) {
+            $tokenRepository->revokeAccessToken($token->id);
+        }
+        return $this->sendResponse([], "User logged out !");
+    }
+
+    public function update(Request $request, $user)
+    {
+        User::find($user->id)->update($request->all());
+        return response(["message" => "User updated"]);
+    }
+
+    public function delete($user)
+    {
+        User::find($user->id)->destroy();
+        return $this->sendResponse([], "User deleted successfully !");
     }
 
 }
