@@ -22,7 +22,7 @@ class UserServices extends BaseController
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
-        return response(["message" => "User created"]);
+        return $this->sendResponse([], "User created !");
     }
 
     public function login(Request $request)
@@ -51,7 +51,7 @@ class UserServices extends BaseController
     public function update(Request $request, $user)
     {
         User::find($user->id)->update($request->all());
-        return response(["message" => "User updated"]);
+        return $this->sendResponse([], "User updated");
     }
 
     public function delete($user)
