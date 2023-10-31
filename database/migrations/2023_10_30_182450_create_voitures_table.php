@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('matricule');
             $table->string('marque');
             $table->string('categorie', 1);
-            $table->float('prix', 5.2);
+            $table->float('prix', 10.2);
             $table->boolean('isvendu')->default(false);
             $table->timestamps();
         });

@@ -34,5 +34,7 @@ Route::prefix('/users')->middleware('auth:api')->group(function() {
 
 Route::prefix('/voitures')->middleware('auth:api')->group(function() {
 
-    Route::post('/list', [VoituresController::class, 'listVoiture']);
+    Route::get('/list', [VoituresController::class, 'listVoiture']);
+    Route::post('/create', [VoituresController::class, 'createVoiture']);
+
 });
